@@ -7,11 +7,135 @@
   <!-- favicon-->
   <link rel="shortcut icon" href="/heart.jpg">
   <!-- Style Sheet  -->
-  <link rel="stylesheet" href="calculator.css">
+
   <!-- icons -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <!-- fonts  -->
   <link href="https://fonts.googleapis.com/css?family=Gamja+Flower|Lobster|Montserrat|Raleway" rel="stylesheet">
+  <style>
+    body {
+    background-image: -webkit-linear-gradient(65deg, #c72c41 70%, #212121 30%);
+  background-color: #c7004c;
+  color: #ee4266;
+  font-family: 'Lobster', cursive;
+  width: 100vw;
+  height: 100vh;
+  
+  
+  
+}
+
+.calculator {
+  width: 50vw;
+  height: 75vh;
+  padding: 50px 50px 20px 50px;
+  text-align: center;
+  margin-left: 300px;
+  margin-top: 100px;
+  background-color:#211717;
+  width: 50%;
+  /* box-shadow: 0px 0px 8px  rgb(169, 24, 36) */
+  animation: shine 2s ease-in-out infinite alternate-reverse;
+  border-radius: 10px;
+  
+}
+
+.name-box {
+  padding: 12px 14px;
+  width: 40%
+}
+
+/* buttons */
+.buttons {
+  color: #fffcfd;
+  background-color: #ed0808;
+  border: solid;
+  border-color: #ee4266;
+  cursor: pointer;
+  margin: 10px 10px;
+  padding: 10px 20px 10px 20px;
+  position: relative;
+  opacity: 0.5;
+  font-size: 1rem;
+  transition: 0.5 ease-in-out;
+}
+@keyframes shine{
+    0%{
+        box-shadow: 0px 0px 20px red;
+    }
+    50%{
+        box-shadow: 0px 0px 20px transparent;
+    }
+    100%{
+        box-shadow: 0px  0px 20px red;
+    }
+}
+
+.buttons:hover {
+  box-shadow: 5px 3px #bd245f;
+  opacity: 1;
+  color: #fcf0f3;
+}
+/* Social Media  */
+.social-media{
+  opacity:0.5;
+  cursor:pointer;
+  padding: 10px 3px 0 4px
+}
+.social-media:hover{
+opacity: 1;
+}
+ a{
+    color:#ee4266;
+}
+ /* copy right  */
+ p{
+ opacity: 1;
+ font-size: 1rem;
+}
+ #notice{
+ opacity: 0.5;
+ font-size:.8rem;
+}
+/* Media Query */
+@media (max-width:600px) {
+  .buttons{width:30%;
+  border-radius: 5px;}
+  .calculator {width: 60%;
+    padding: 10px 20px 10px 10px;
+    margin-left: 100px;
+    margin-top: 50px;
+  }
+}
+@keyframes text{
+    0%{
+        text-shadow: 0px 0px 10px white;
+    }50%{
+        text-shadow: 0px 0px 10px transparent;
+    }100%{
+        text-shadow: 0px 0px 10px rgb(255, 255, 255);
+    }
+}
+h1,h2{
+   
+
+    
+}
+#heart{
+    animation: text alternate 2s infinite ease-in-out;
+}
+@keyframes change{
+    0%{
+        background: linear-gradient(to right,red,rgb(252, 44, 44),rgb(248, 95, 95),rgb(254, 148, 148));
+    }
+    50%{
+        background: linear-gradient(to right,rgb(216, 249, 231),rgb(99, 251, 243),rgb(3, 220, 209));
+    }
+    100%{
+        background: linear-gradient(to right,rgb(248, 248, 7),rgb(255, 255, 114),rgb(252, 252, 159));
+    }
+}
+  </style>
 </head>
 
 <body>
@@ -28,13 +152,100 @@
     <button id="love-button" onclick="loveCalculator()" class="buttons" type="submit" value="Submit"><i class="fas fa-heart"></i> Submit</button>
     <button onclick="resetFunction()" class="buttons" type="submit"><i class="fas fa-heart-broken"></i> Reset</button>
     <footer>
-      <a href="https://www.linkedin.com/in/tylerbakker35699864"><i class="social-media fab fa-1x fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/traizon_webdev/"><i class="social-media fab fa-1x fa-instagram"></i></a>
-      <p id="notice">*Note:More updates coming soon!</p>
+      <a href="#"><i class="social-media fab fa-1x fa-linkedin"></i></a>
+      <a href="https://instagram.com/vishalrajyaduvanshi59?igshid=OGQ5ZDc2ODk2ZA=="><i class="social-media fab fa-1x fa-instagram"></i></a>
+      <p id="notice">* Note: I'm a Web-devloper !  *</p>
       <p>© 2023 Vishal Raj (Vishu)</p>
     </footer>
   </div>
-  <script src="/index.js" charset="utf-8"></script>
+  <script >
+    // jshint esversion:6
+var isNotClicked = true;
+var audio;
+
+function calculateLoveScore(names) {
+  var loves = ["l", "o", "v", "e", "s"];
+  var countArray = [];
+
+  names = names.toLowerCase();
+
+  countArray = loves.map(function (item) {
+    count = 0;
+    for (var i = 0; i < names.length; i += 1) {
+      if (item === names[i]) {
+        count += 1;
+      }
+    }
+    return count;
+  });
+
+  // Increase the weight of the scores to get a wider range
+  countArray = countArray.map(function (count) {
+    return count * 20; // You can adjust this factor to control the range of scores
+  });
+
+  return countArray.reduce(function (acc, val) {
+    return acc + val;
+  }, 0);
+}
+
+var loveCalculator = function () {
+  var yourName = document.getElementById("firstname").value;
+  var loversName = document.getElementById("lovername").value;
+
+  // Calculate love score
+  var loveFinal = calculateLoveScore(yourName + loversName);
+
+  // Check love score range and play corresponding song
+  if (loveFinal < 30) {
+    playSong("dil.mp3"); // Replace "dil.mp3" with the actual file name of your song
+  } else if (loveFinal >= 30 && loveFinal < 50) {
+    playSong("moye.mp3"); // Replace "moye.mp3" with the actual file name of your song
+  } else if (loveFinal >= 50 && loveFinal < 70) {
+    playSong("rafta.mp3"); // Replace "rafta.mp3" with the actual file name of your song
+  } else if (loveFinal >= 70) {
+    playSong("tum.mp3"); // Replace "tum.mp3" with the actual file name of your song
+  }
+
+  if (yourName === "") {
+    alert("Please enter your name");
+  } else if (loversName === "") {
+    alert("Please enter your lover's name");
+  } else if (isNotClicked) {
+    document.getElementById("lovefinal").innerHTML =
+      yourName + " and " + loversName + " your love score is " + loveFinal + " % ";
+    isNotClicked = false;
+  } else {
+    document.getElementById("lovefinal").innerHTML =
+      yourName + " and " + loversName + " your love score is " + loveFinal + " % ";
+  }
+};
+
+// Function to play a song
+function playSong(songName) {
+  audio = new Audio(songName);
+  audio.play();
+}
+
+// Reset button
+function resetFunction() {
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  location.reload();
+}
+
+document.getElementById("submit").addEventListener(
+  "click",
+  function (e) {
+    e.preventDefault();
+    loveCalculator();
+  },
+  false
+);
+
+  </script>
 </body>
 
 </html>
